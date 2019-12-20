@@ -5,11 +5,19 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{epstopdf}
-\usepackage[english, german]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage[table]{xcolor}
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage[inline]{enumitem}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage{parskip}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \theoremstyle{definition}
@@ -21,9 +29,9 @@
    \color{blue}
 }{}
 
-\newcommand{\projectname}{Template}
-\newcommand{\productname}{Name of the Project}
-\newcommand{\projectleader}{P. Bauer}
+\newcommand{\projectname}{Doctor Robert}
+\newcommand{\productname}{Doctor Robert}
+\newcommand{\projectleader}{D. Weidinger}
 \newcommand{\documentstatus}{In process}
 %\newcommand{\documentstatus}{Submitted}
 %\newcommand{\documentstatus}{Released}
@@ -32,15 +40,17 @@
 \begin{document}
 \begin{titlepage}
 \begin{flushright}
-\includegraphics[scale=.5]{htlleondinglogo.png}\\
 \end{flushright}
 
 \vspace{10em}
 
 \begin{center}
-{\Huge System Specification} \\[3em]
+{\Huge System Specifications} \\[3em]
 {\LARGE \productname} \\[3em]
+\includegraphics[scale=.5]{logo.png}\\
 \end{center}
+
+\vspace{10em}
 
 \begin{flushleft}
 \begin{tabular}{|l|l|}
@@ -53,11 +63,20 @@ Version & \version \\ \hline
 \end{flushleft}
 
 \end{titlepage}
+
 \section*{Revisions}
 \begin{tabular}{|l|l|l|}
 \hline
 \cellcolor[gray]{0.5}\textcolor{white}{Date} & \cellcolor[gray]{0.5}\textcolor{white}{Author} & \cellcolor[gray]{0.5}\textcolor{white}{Change} \\ \hline
-November 03, 2019&P. Bauer&First version \\ \hline
+November 08, 2019& Gruber, Tanzer, Weidinger &Initial Situation \\ \hline
+November 15, 2019& Gruber, Tanzer, Weidinger & Use Cases\\ \hline
+November 18, 2019& Gruber, Tanzer, Weidinger &Use Cases \\ \hline
+November 22, 2019& Gruber, Tanzer, Weidinger &Use Cases, Application Domain \\ \hline
+November 29, 2019& Gruber, Tanzer, Weidinger &Use Cases, NFR \\ \hline
+November 06, 2019& Gruber, Tanzer, Weidinger &NFR \\ \hline
+November 13, 2019& Gruber, Tanzer, Weidinger &Quantity Structure, System Architecture \\ \hline
+November 16, 2019& Gruber, Tanzer, Weidinger & Patching  \\ \hline
+November 20, 2019& Gruber, Tanzer, Weidinger &Proof Reading\\ \hline
 \end{tabular}
 \pagebreak
 
@@ -65,135 +84,319 @@ November 03, 2019&P. Bauer&First version \\ \hline
 \pagebreak
 
 \section{Initial Situation and Goal}
-\begin{explanation}
-This section describes the initial situation and the motivation to start this project. You describe the problem of the existing system or approach and make clear what led to the decision to carry out this project and point out the benefits of the new system.
-Furthermore, list all relevant project stake holders and draw a picture how your system will fit into the framework of existing systems and environments. Finally a first draft of general requirements like technical constraints or security constraints has to be given.
-\end{explanation}
 
 \subsection{Initial Situation}
-\begin{explanation}
-In this subsection you describe the scope of application of your system. Describe the current state of how the current system works. Give current work flows and introduce and explain domain specific terms. Revisit the section “Initial Situation” from your project proposal and see what you would refine under your now improved understanding of the project
-\end{explanation}
+
+When people start to show symptoms of a possible sickness or get mildly injured, they often tend to misjudge or downplay the severity of their conditions, to justify not making a doctors appointment, since going to the doctors is a big inconvenience for most people in this day of age. This behaviour often leads those people to seek out to google for a diagnosis.
+
+Googling symptoms can be quite tedious and unnecessarily time-consuming. It involves opening a lot of sites, skimming trough loads of text and most of the time the results are rather inaccurate. 
+
+Although there are already good individual solutions for medical third opinions, there has yet to be a simple unified platform for all individual cases.
+{\bf For example} \href{https://www.netdoktor.de/}{Netdoktor}, the market leader for medical articles and questions in German speaking countries, has a program called \href{https://www.netdoktor.de/symptom-checker/}{Symptom-Checker} that tries to simplify the process of searching for medical treatments on their own website by asking the user questions about their gender, age, area of pain, etc. This process also includes redundant questions and limits the user to input only by selection, which makes it hard to accurately describe symptoms. Netdoktor only supports the German language so if a user wants an English diagnosis they have to switch to a different service.
+
+Such services also lack features like scanning skin in order to diagnose skin diseases, so a user has to use, or even download, another application like for example \href{http://www.skinvision.com}{Skin Vision}, which is a program used to recognize skin diseases based on images. This could lead the user to not look up their suspicious looking piece of skin. 
+
+As of now we are not aware of any healthcare assistants or symptom checkers that make use of sophisticated Artificial Intelligence algorithms. Neuronal networks trained on medical data, like BioBert, already exist and outperform established solutions in regards of accuracy and convenience but are not easily accessible for the ordinary consumer.
+
+Additionally, we want to provide medical professionals the opportunity to profit from our platform by placing location based advertisements. Depending on the type of problem or injury, advertisements will be selected to match the needs of the user and refer to the right kind of professional. 
+
+To make advertising more appealing to potential advertisers we want to collect anonymous statistical data. Doctors then can see if placing an advertisement would be beneficial for their business. For example, a chiropractor could promote their ordination in an area with an higher likely hood of back problems.
+
+We also realized how much impact an improvement in the online healthcare consultation actually has. Every second citizen of Austria at least once googled their complains. An estimated amount of 70.000 of google's queries per minute, spread all over the world, are health related.
+
+\pagebreak
 
 \subsubsection{Application Domain}
-\begin{explanation}
-Describe the application domain of your system as well as the environment in which it is embedded. If there exists an environmental business process you should describe it here. Focus on the interrelationship of terms, business processes etc. (... not sure whether I understand what they really mean here...)
 
-Your goal in this section is to introduce the domain-specific terminology and the context in which your system lives. Introduce in a way such that an interested layman can follow your text, establish a clear structure of your text, use illustrations and don’t assume a detailed domain specific knowledge.
+Our system, in its core, is a healthcare assistant. As a healthcare assistant, your job is to provide information and advice for those who need it. Therefore our system acts in a way that information given by a user is converted to a corresponding answer/advice. 
 
-Take care to clearly separate assumptions from given hard facts. This enables you to trace down your requirements in case of (customer) complaints in a later project stage.
-\end{explanation}
+It is base upon an NLP model (natural language processing model). NLP is a sub field of linguistic and artificial intelligence concerned with the interaction between humans and computers via natural language. This model on its own cannot be used in a practicable way. It has to be wrapped in a shell like, for instance, a mobile application to make it available for commercial use. Applications programs or groups of programs designed for end users with an UI(user interface) for user interaction and UX(user experience) for the usage feeling.
+
+Next to being a health care assistant, the system also includes an advertising portal for medical professionals and pharmaceutical companies. With Medical professionals we mean doctors, chiropractors and other certified personnel allowed to care out medical tasks who want to attract potential customers to their ordinations or rather businesses. Whereas pharmaceutical companies can use the opportunity to advertise their drugs.
+
+
+\subsubsection{Glossary}
+
+\begin{itemize}
+    \item healthcare assistant
+    
+    Someone or something that provides information or rather assists someone regarding health and healthcare. 
+    
+    \item healthcare
+    
+    is the maintenance or improvement of health via the prevention, diagnosis, treatment, recovery, or cure of disease, illness, injury, and other physical and mental impairments in people.
+    
+    \item NLP
+    
+    Short for natural language processing which is a sub field of linguistic and artificial intelligence concerned with the interaction between humans and computers via natural language.
+    
+    \item artificial intelligence
+    
+    is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans.
+    
+    \item linguistic
+    
+    is the scientific study of language. It involves analysing language form, language meaning, and language in context.
+    
+    \item (mobile) application
+    
+    is a program or group of programs designed for end users. In our case, the application is deployed for mobile devices.
+    
+    \item UI
+    
+    Short for User Interface. The UI describes the space of operation between human and computer.
+    
+    \item UX
+    
+    Short for User Experience. It is concerned with a person's emotions and attitudes about using a particular product, system or service.
+    
+    \item advertisement
+    
+    Advertising is a marketing communication that employs an openly sponsored, non-personal message to promote or sell a product, service or idea.
+    
+    \item advertising portal
+    
+    An application to access advertisement functionality. Like booking ads or reviewing statistics regarding placed ads. For instance the number of people you reached or those who already click on the ads.
+    
+    \item medical professional
+    
+    Someone who is certified or legally allowed to carry out medical tasks.
+    
+    \item doctor
+    
+    A medical professional who has a degree in medicine or a sub field of medicine.
+    
+    \item pharmaceutical companies
+    
+    Companies whose main source of income comes from the distribution and creation of drugs.
+    
+    \item ordination
+    
+    Synonym to doctor's office or in a broader sense a medical professional's office.
+    
+\end{itemize}
+
+\subsubsection{Model of the Application Domain}
+
+This section gives an high-level overview of our application domain.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{SystemSpec/Usecases/Diagrams/DoctorRobert-ClassDiagram.png}
+    \caption{high-level representation of the application domain}
+    \label{fig:my_label}
+\end{figure}
+
+\pagebreak
 
 \subsection{Goal}
-\begin{explanation}
-Describe in detail what your project wants to achieve. Give clear answers how the shortcomings mentioned in the Initial Situation will be solved by the project.
-\end{explanation}
+
+Our main goal is to provide medical advice, such as a specific diagnosis to a certain illness or a suggestion to see a professional. By using an outstandingly trained neural-network we can supply thoroughly in-depth and yet simple answers to what the user has to know about his current state. If the diagnosis shows indication of skin irritations, it automatically suggests a skin scan for a higher quality analysis. In case the response is a tiny bit too complex, redirects for further explanations and links to qualified websites are provided.
+Additionally, we allocate marketing space for medical professionals like doctors or even accomplished medical companies by placing advertisements of the respected advertiser. The advertisements are placed based on raised statistics of our given diagnoses, consisting of certain keywords, how often and where they are used, giving advertisers the chance to target the right area of possible customers and maximise their profit.
+
 \pagebreak
 
 \section{Functional Requirements}
-\begin{explanation}
-Functional requirements describe the features of a system which are expected by a user in order to solve a specific problem. The requirements are derived from the business processes and work flows which are supported by the system.
-
-The description of functional requirements is accomplished by means of use cases. A use case describes a concrete and self-contained process. The sum of all use cases describes the system behaviour. Describe use cases in plain text and support it by provide clear and illustrative use case diagrams.
-In case of a very data-oriented application provide a first version of a data model (business domain model). This model is the basis for the data base design in a later project stage. The data model is derived from the entities of the domain model.
-\end{explanation}
 
 \subsection{Overview}
-\begin{explanation}
-In this subsection you give an overview of all use cases. Starting with a UML use case diagram you list all use cases covered in your system and a short description of each of the use cases.
-\end{explanation}
 
-\subsection{Use Case 1: $<$Name$>$}
-\begin{explanation}
-This subsection is copied for each use case you listed in the previous section.
-\end{explanation}
-\subsubsection{General Description}
-\begin{explanation}
-Give a general description of where a tabular form might help:
-\end{explanation}
+\includegraphics[scale=1.69420]{SystemSpec/Usecases/Diagrams/UseCaseDiagram.png}\\
 
-\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
-\hline 
-ID: & Identifier of the use case \\ \hline
-Goal: & The goal of the use case \\ \hline
-Precondition: & Under which condition is the user case triggered? \\ \hline
-Postcondition: & What conditions are true after the use case was successfully executed? \\ \hline
-Involved Users: &Role name: Description of users interacting with the system. “Users” can be other systems, too. \\ \hline
-\end{tabular}
+\begin{enumerate*}
+    \item Get Diagnosis,
+    \item Enter Symptoms,
+    \item Scan Skin,
+    \item Place ad,
+    \item Request verification
+    \item Verify advertiser
+\end{enumerate*}
 
-\subsubsection{UI to call the use case}
-\begin{explanation}
-Give a sketch of the UI and describe the UX controls.
-\end{explanation}
+\subsection{UI Overview}
 
-\subsubsection{The Standard Use}
-\begin{explanation}
-Describe the happy path.
-\begin{itemize}
-	\item UI
-	\item Description
-	\item Activity, Sequence, or State Diagram to visualize the workflow
-\end{itemize}
-\end{explanation}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.8]{SystemSpec/Usecases/Mocks/MockOverview.PNG}\\
+\caption{\label{fig:blue_rectangle} main page}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.6\textwidth}
 
-\subsubsection{The Non-Standard Use}
-\begin{explanation}
-Describe the corner cases, possible errors and how the system reacts on them
-\begin{itemize}
-	\item UI
-	\item Description
-	\item Activity, Sequence, or State Diagram to visualize the workflow
-\end{itemize}
-\end{explanation}
+The user enters his ailments into the app. Using words or whole sentences to describe the current unwell-feeling. Since the predication will be more accurate if more keywords are read, a more precise description of the
+illness is better than just words. Even though words alone are sufficient.
+
+The output informs the user about possible symptoms causing the ill-being and/or about feasible solution and if desired further elaboration on certain results.
+
+The user then can decide how to act from that point. Depending on the outcome he can leave it be, do further research through provided links or arrange a doctors appointment.
+
+\end{minipage}
+
 \pagebreak
 
+\input{SystemSpec/Usecases/1EnterSymptoms.tex}
+
+\input{SystemSpec/Usecases/2ScanSkin.tex}
+
+\input{SystemSpec/Usecases/3GetDiagnosis.tex}
+
+\input{SystemSpec/Usecases/4RequestVerification.tex}
+
+\input{SystemSpec/Usecases/5VerifiyAdvertiser.tex}
+
+\input{SystemSpec/Usecases/6PlaceAd.tex}
+
 \section{Non-Functional Requirements}
-\begin{explanation}
-Non-functional requirements describe all aspects of a system that cannot be mapped to a specific feature. Nevertheless these requirements are essential for the system itself. Non-functional requirements are, e.g., quality requirements, security requirements, or performance requirements.
 
-Non-functional requirements define basic features of a system which also have an impact on the architecture. They also influence the development costs and, therefore should be formulated in a measurable way.
-WRONG: The system shall be fast responding.
-CORRECT: The response time shall be within 500 ms.
-
-The following section has to be copied for each non-functional requirement.
-\end{explanation}
-
-\subsection{NFR 1: $<$Name$>$}
+\subsection{NFR 1: Medical Related Data}
 \begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
 \hline 
-ID: & Identifier of the NFR \\ \hline
-Name: & The name of the NFR \\ \hline
-Type	: & Type as described below \\ \hline
-Descritpion: &  \\ \hline
+ID: & NFR01 \\ \hline
+Name: & Medical Related Data \\ \hline
+Type	: & SEC \\ \hline
+Description: &  Information regarding the health or general condition of a user must not be saved and secure from third parties.\\ \hline
 \end{tabular}
 
-The type of the NFR shall be taken from one of the following: The table below shall finally be deleted.
-
-\begin{tabular}{|p{.15\linewidth}|p{.25\linewidth}|p{.4\linewidth}|}
-\hline
-MAINT & Maintenance and portability requirement & Which maintenance or porting effort is expected in the future? Internationalization expected? Porting to different hardware platform?... \\ \hline
-SEC & Security requirement & Security requirements comprise confidentiality, data integrity, and availability. How much do we have to consider that data is not accessible to unauthorized persons? Is the correctness and/or consistency of data to be guaranteed? How severe are total system faults? \\ \hline
-LEGAL & Legal requirement & Are there any standards or legal constraints to be considered? \\ \hline
-USE & Usability Requirement & Usability covers all aspects to make the targeted user like to work with the software. \\ \hline
-EFFIC & Efficiency Requirement & Runtime and/or memory efficiency of the program. \\ \hline
+\subsection{NFR 2: AI Ethic}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+ID: & NFR02 \\ \hline
+Name: & AI Ethic \\ \hline
+Type	: & LEGAL \\ \hline
+Description: & As for now, experts are not sure about the legal situation of Artificial Intelligence giving medical advice to humans. Therefore, to be on the safe side, we will clearly communicate the user that the solutions the system provides are not in any way a substitute or replacement for a doctor's opinion. \\ \hline
 \end{tabular}
+
+\subsection{NFR 3: Clearly laid out answers}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+ID: & NFR03 \\ \hline
+Name: & Clearly laid out answers \\ \hline
+Type	: & USE \\ \hline
+Description: & To make sure the diagnoses and responses made by Doctor Robert are neatly laid out, to ensure a good UX, we at most give two responses and automatically clear the chat history when the app closes. \\ \hline
+\end{tabular}
+
+\subsection{NFR 4: Reliability}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+ID: & NFR03 \\ \hline
+Name: & Reliability \\ \hline
+Type	: & USE \\ \hline
+Description: &  Our diagnoses' and predictions' failure rate has to be lower than 0.05\%.  \\ \hline
+\end{tabular}
+
+\subsection{NFR 5: Convenience}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+ID: & NFR03 \\ \hline
+Name: & Convenience \\ \hline
+Type	: & USE \\ \hline
+Description: & The whole process of typing in the complaints and getting the diagnosis has to be done in less steps than just googling.  \\ \hline
+\end{tabular}
+
+\subsection{NFR 6: Prompt answers}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+ID: & NFR03 \\ \hline
+Name: & Prompt answers \\ \hline
+Type	: & EFFIC \\ \hline
+Description: & The response time shall be within 500 ms.  \\ \hline
+\end{tabular}
+
 \pagebreak
 
 \section{Quantity Structure}
-\begin{explanation}
-Describe the number of expected records in master data as well as business cases. This assessment is basis to make proper decisions concerning the form of data persistence (e.g., XML or data base) and data base product. Furthermore the quantity structure gives you a better idea about special requirements (e.g. the GUI) for your system because of hight quantity data.
-\end{explanation}
+
+For the collection of our data we will use firebase, google's document oriented database service. This makes our job simpler since we can rely on Google's API and infrastructure. We simply pay more if we need more. It is free up to a certain threshold. If we shall ever reach the limit of free records we probably have a large enough user-base to financially maintain further growth. 
+
+The data we collect will consist of user accounts, advertiser accounts and corresponding advertisements, statistics, payment references and bills for promotions. A users memory footprint will be even smaller if one considers the possibility of an OAuth2 login via google or facebook.
 
 \pagebreak
+
 \section{System Architecture and Interfaces}
-\begin{explanation}
-To illustrate how your system is embedded in it’s environment list all interfaces to surrounding systems. Interfaces to users, supporting systems, logistics, peer-systems are to be listed and described.
-\end{explanation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{SystemSpec/Usecases/Diagrams/DoctorRobertArchitecture.png}
+    \caption{Illustration of the system}
+    \label{fig:my_label}
+\end{figure}
+
+
+
+\subsection{Backend}
+
+The backend consists of the following components.
+
+\begin{itemize}
+    \item AI inference/Kubernetes Cluster
+    
+    A Kubernetes cluster consisting of independent TensorFlow Serving Docker container will handle the computational expensive task of inferring the answer to the users query. TensorFlow Serving is a high-performance serving solution for machine learning models. Kubernetes will distribute the workload evenly between the containers and, if needed, dynamically create new ones. 
+    
+    \item DoctorRobert API Server/
+    
+    The goal of this component is to handle REST calls from the frontend. If the user requests a diagnosis for his or her symptom description, this part of the system will delegate the task via gRPC to the Kubernetes Cluster. Futhermore, the user management will be done by this server, executing the well known CRUD functionality on the Firestore database.
+    
+    \item Firebase's Firestore
+    
+    Firestore is a NoSQL database of Google's Firebase application-development suit. The communication with this cloud-service storage will be done via googles API and will only happen on the API server.
+    
+\end{itemize}
+
+\subsection{Frontend}
+
+\begin{itemize}
+    \item DoctorRobert healthcare assistant
+    
+    The main application will be realized in flutter. This is the interface for the user.
+    
+    \item Advertiser Portal
+    
+    An Angular app for interactions with the backend regarding advertisement. This is the interface for the advertiser.
+\end{itemize}
 
 \pagebreak
-\section{Acceptance Criteria}
-\begin{explanation}
-The acceptance criteria define which criteria the system has to fulfill in order to be accepted. Describe, what has to be checked such that the system can be accepted. Give at least one acceptance test for each functional requirement described in this document. For each acceptance criterion one subsection has to be written.
-\end{explanation}
 
-\end{document}  
+\section{Acceptance Criteria}
+
+\subsection{Acceptance Criteria 01: Get Diagnosis}
+\subsubsection{Text}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+\cellcolor[gray]{0.5}\textcolor{white}{Steps} & \cellcolor[gray]{0.5}\textcolor{white}{Expected behaviour} \\ \hline
+Use Case 1: Enter Symptoms & The user enters their symptoms and complaints, in actual spoken language. \\ \hline
+Use Case 3: Get Diagnosis & Based on the user's input a certain diagnosis will be returned. If the user where to enter something nonsensical, a nonsensical answer will return.  \\ \hline
+\end{tabular}
+
+\subsubsection{Text and Picture}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+\cellcolor[gray]{0.5}\textcolor{white}{Steps} & \cellcolor[gray]{0.5}\textcolor{white}{Expected behaviour} \\ \hline
+Use Case 1: Enter Symptoms & The user enters symptoms related to skin diseases, in actual spoken language. \\ \hline
+Use Case 3: Get Diagnosis & The user gets an diagnosis and is asked to take a picture of their skin irrationality to further improve the diagnosis and make it more accurate. \\ \hline
+Use Case 2: Scan Skin & The user takes a picture and submits it for further processing. \\ \hline
+Use Case 3: Get Diagnosis & Now the user gets an accurate diagnosis about their skin related issue. \\ \hline
+\end{tabular}
+
+\subsubsection{Add Advertisement}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+\cellcolor[gray]{0.5}\textcolor{white}{Steps} & \cellcolor[gray]{0.5}\textcolor{white}{Expected behaviour} \\ \hline
+Use Case 3: Get Diagnosis & An appended message will be sent along with the original one, containing credentials and further information about the advertiser, if enough keywords match.  \\ \hline
+\end{tabular}
+
+\subsection{Acceptance Criteria 02: Verify Advertiser}
+
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+\cellcolor[gray]{0.5}\textcolor{white}{Steps} & \cellcolor[gray]{0.5}\textcolor{white}{Expected behaviour} \\ \hline Use Case 4: Request Verification &  Somebody who wants to have the opportunity to place ads on our app, requests a verification to be an advertiser on our website. \\ 
+\hline Use Case 5: Verify Advertiser & An admin reviews the verification and either grants the requester advertiser status or rejects it. \\ 
+\hline
+\end{tabular}
+
+
+\subsection{Acceptance Criteria 03: Place Advertisement}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+\cellcolor[gray]{0.5}\textcolor{white}{Steps} & \cellcolor[gray]{0.5}\textcolor{white}{Expected behaviour} \\ \hline
+Use Case 6: Place Ad & An advertiser pays a certain amount in advance to promote himself, as long as the payment goes through. A small fee will be charged from his stored money every time he was advertised. \\ \hline
+\end{tabular}
+\end{document}

@@ -1,0 +1,34 @@
+\subsection{Use Case 6: Verify Advertiser}
+
+\subsubsection{General Description}
+\begin{tabular}{|p{.2\linewidth}|p{.65\linewidth}|}
+\hline 
+ID: & Verify Advertiser \\ \hline
+Goal: & To process a verification request. \\ \hline
+Precondition: & A verification request must have been made.  \\ \hline
+Postcondition: & The request either gets accepted and an advertiser account is granted or it gets denied and a rejection message will be sent \\ \hline
+Involved Users: & Admin: Somebody who is authorized to verify requests \\ \hline
+\end{tabular}
+
+\subsubsection{UI}
+
+After a possible advertiser has made an verification request on our website, the actual authorization process happens personally outside our system and the interaction with the possible advertiser will be handled via email to enable personal message exchange. So this Use Case has no User Interface.
+
+\subsubsection{The Standard Use}
+
+After we receive an verification request, an admin has to personally review the sent certificates and authorization files to either accept the request and grant the advertiser a verified status or deny it and send an rejection message with reasoning on why it will not be accepted.
+
+\subsubsection{The Non-Standard Use}
+
+\begin{itemize}
+    \item The request is not serious
+    
+    If an request is obviously not made with serious intent, it will be ignored and deleted. 
+    
+    \item We cannot confirm the authenticity of the pictures
+    
+    If the send verification picture are, for example, low resolution and blurry and are therefor not readable, the admin has to sent an response that urges the possible advertiser to redo the request verification process.
+    
+\end{itemize}
+
+\pagebreak
